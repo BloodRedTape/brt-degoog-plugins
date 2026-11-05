@@ -1,0 +1,71 @@
+.region-picker-btn--set,
+.region-picker-btn--set:hover {
+  color: var(--brand-blue);
+}
+
+.region-picker-btn .search-bar-action-label {
+  font-weight: 600;
+}
+
+.region-picker-btn .search-bar-action-label:empty {
+  display: none;
+}
+
+.region-picker-menu {
+  position: fixed;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: min(15rem, calc(100vw - 1rem));
+  overflow: hidden;
+}
+
+.region-picker-menu .region-picker-filter {
+  flex: 0 0 auto;
+  box-sizing: border-box;
+}
+
+.region-picker-list {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.region-picker-list:empty {
+  display: none;
+}
+
+.region-picker-menu .region-picker-option[hidden],
+.region-picker-status[hidden] {
+  display: none;
+}
+
+.region-picker-status {
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.region-picker-option {
+  gap: 0.5rem;
+}
+
+.region-picker-name {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.region-picker-code {
+  flex-shrink: 0;
+  margin-inline-start: auto;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.region-picker-option--active .region-picker-name {
+  font-weight: 600;
+  color: var(--brand-blue);
+}
