@@ -51,7 +51,47 @@
   gap: 0.5rem;
 }
 
+.region-picker-recent {
+  margin-bottom: 0.25rem;
+  padding-bottom: 0.25rem;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.region-picker-recent[hidden] {
+  display: none;
+}
+
+.region-picker-recent-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.25rem 1rem;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.region-picker-recent-clear {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: var(--brand-blue);
+  cursor: pointer;
+}
+
+.region-picker-recent-clear:hover {
+  text-decoration: underline;
+}
+
+.region-picker-check {
+  flex-shrink: 0;
+  font-size: 0.875rem;
+  color: var(--brand-blue);
+}
+
 .region-picker-name {
+  flex: 1 1 auto;
   min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -60,7 +100,6 @@
 
 .region-picker-code {
   flex-shrink: 0;
-  margin-inline-start: auto;
   font-size: 0.75rem;
   color: var(--text-secondary);
 }

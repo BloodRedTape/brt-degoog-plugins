@@ -12,11 +12,15 @@ const ANCHOR_GAP = 4;
 const MENU_MAX_HEIGHT = 360;
 const MENU_MIN_HEIGHT = 120;
 const FLIP_BELOW_HEIGHT = 180;
+const RECENT_STORAGE_KEY = "region-picker-recent";
+const MAX_RECENT = 5;
 
 const STRINGS = {
   en: {
     region: "Region",
     none: "No region",
+    recent: "Recent",
+    clearRecent: "Clear all",
     filter: "Filter regions",
     loading: "Loading…",
     empty: "No engine supports regions.",
@@ -27,6 +31,8 @@ const STRINGS = {
   ru: {
     region: "Регион",
     none: "Без региона",
+    recent: "Недавние",
+    clearRecent: "Очистить",
     filter: "Найти регион",
     loading: "Загрузка…",
     empty: "Ни один движок не поддерживает регионы.",
@@ -37,6 +43,8 @@ const STRINGS = {
   uk: {
     region: "Регіон",
     none: "Без регіону",
+    recent: "Нещодавні",
+    clearRecent: "Очистити",
     filter: "Знайти регіон",
     loading: "Завантаження…",
     empty: "Жоден рушій не підтримує регіони.",
@@ -110,6 +118,32 @@ const _readRegion = async () => {
 
 const _writeRegion = (code) =>
   _withStore("readwrite", (s) => s.put(code, REGION_KEY));
+
+const _loadRecent = () => {
+  try {
+    const stored = JSON.parse(localStorage.getItem(RECENT_STORAGE_KEY) ?? "[]");
+    if (!Array.isArray(stored)) return [];
+    return [...new Set(stored.map(_normalize).filter(Boolean))].slice(0, MAX_RECENT);
+  } catch (err) {
+    console.debug("[region-picker] could not read recent regions", err);
+    return [];
+  }
+};
+
+const _saveRecent = (codes) => {
+  try {
+    localStorage.setItem(RECENT_STORAGE_KEY, JSON.stringify(codes));
+  } catch (err) {
+    console.debug("[region-picker] could not save recent regions", err);
+  }
+};
+
+const _rememberRecent = (code) => {
+  const codes = [code, ..._loadRecent().filter((c) => c !== code)];
+  const trimmed = codes.slice(0, MAX_RECENT);
+  _saveRecent(trimmed);
+  return trimmed;
+};
 
 let _regionsRequest = null;
 
@@ -222,9 +256,10 @@ const _setStatus = (session, text) => {
   _place();
 };
 
-const _visibleOptions = (session) => [
-  ...session.list.querySelectorAll(".region-picker-option:not([hidden])"),
-];
+const _visibleOptions = (session) =>
+  [...session.list.querySelectorAll(".region-picker-option")].filter(
+    (option) => !option.closest("[hidden]"),
+  );
 
 const _select = async (session, code) => {
   if (session.saving) return;
@@ -242,6 +277,7 @@ const _select = async (session, code) => {
     return;
   }
   _region = code;
+  if (code) _rememberRecent(code);
   _decorateAll();
   _close();
   if (_isResultsPage()) _reloadFirstPage();
@@ -259,14 +295,46 @@ const _renderOption = (session, code, label) => {
   option.dataset.search = `${label} ${code}`.toLowerCase();
   option.append(_el("span", "region-picker-name", label));
   if (code) option.append(_el("span", "region-picker-code", code));
+  if (active) option.append(_el("span", "region-picker-check", "✓"));
   option.addEventListener("click", () => void _select(session, code));
   return option;
+};
+
+const _recentCodes = (available) => {
+  const known = new Set(available.map((o) => o.code));
+  const stored = _region && !_loadRecent().includes(_region)
+    ? _rememberRecent(_region)
+    : _loadRecent();
+  return stored.filter((code) => known.has(code));
+};
+
+const _renderRecent = (session, options) => {
+  const codes = _recentCodes(options);
+  if (codes.length === 0) return;
+  const labels = new Map(options.map((o) => [o.code, o.label]));
+  const box = _el("div", "region-picker-recent");
+  const header = _el("div", "region-picker-recent-header");
+  const clear = _el("button", "region-picker-recent-clear", _str("clearRecent"));
+  clear.type = "button";
+  clear.addEventListener("click", () => {
+    _saveRecent([]);
+    box.hidden = true;
+    session.recent = null;
+    (session.filter ?? _visibleOptions(session)[0])?.focus();
+    _place();
+  });
+  header.append(_el("span", "region-picker-recent-title", _str("recent")), clear);
+  box.append(header);
+  codes.forEach((code) => box.append(_renderOption(session, code, labels.get(code))));
+  session.list.append(box);
+  session.recent = box;
 };
 
 const _applyFilter = (session) => {
   const query = session.filter?.value.trim().toLowerCase() ?? "";
   let matches = 0;
-  session.list.querySelectorAll(".region-picker-option").forEach((option) => {
+  if (session.recent) session.recent.hidden = !!query;
+  session.list.querySelectorAll(":scope > .region-picker-option").forEach((option) => {
     const match = !query || option.dataset.search.includes(query);
     option.hidden = !match;
     if (match) matches += 1;
@@ -321,6 +389,7 @@ const _populate = async (session) => {
     return;
   }
   _setStatus(session, "");
+  _renderRecent(session, options);
   session.list.append(_renderOption(session, "", _str("none")));
   options.forEach(({ code, label }) =>
     session.list.append(_renderOption(session, code, label)),
@@ -369,7 +438,7 @@ const _openMenu = (anchor) => {
   list.setAttribute("aria-label", _str("region"));
   menu.append(status, list);
 
-  const session = { menu, anchor, status, list, filter: null, saving: false };
+  const session = { menu, anchor, status, list, filter: null, recent: null, saving: false };
   menu.addEventListener("keydown", (e) => _onMenuKeydown(session, e));
   menu.addEventListener("focusout", (e) => {
     if (_open === session && e.relatedTarget && !menu.contains(e.relatedTarget)) {
