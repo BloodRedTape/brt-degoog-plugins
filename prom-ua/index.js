@@ -3,7 +3,8 @@ import { parseResults } from "./parse.js";
 const FALLBACK_UA =
   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36";
 
-const PAGE_SIZE = 29;
+const SITE_PAGE_SIZE = 29;
+const RESULTS_PER_PAGE = 10;
 
 const _langPrefix = (lang) => (lang?.toLowerCase().startsWith("ru") ? "" : "/ua");
 
@@ -24,20 +25,42 @@ export default class PromUaEngine {
   name = "Prom.ua";
   bangShortcut = "prom";
 
-  async executeSearch(query, page = 1, _timeFilter, context) {
-    if (!query.trim()) return [];
-    const langPrefix = _langPrefix(context?.lang);
+  async _fetchSitePage(query, sitePage, langPrefix, context) {
     const doFetch = context?.fetch ?? fetch;
-    const res = await doFetch(_buildUrl(query, page, langPrefix), {
+    const res = await doFetch(_buildUrl(query, sitePage, langPrefix), {
       headers: _buildHeaders(context, langPrefix),
       redirect: "follow",
     });
     context?.sentinel?.(res, this.name);
-    if (!res.ok) return [];
+    if (!res.ok) return null;
+    return parseResults(await res.text(), this.name, langPrefix);
+  }
 
-    const { results, total } = parseResults(await res.text(), this.name, langPrefix);
-    if (total) context?.pagination?.({ total: Math.ceil(total / PAGE_SIZE) });
-    return results;
+  async executeSearch(query, page = 1, _timeFilter, context) {
+    if (!query.trim()) return [];
+    const langPrefix = _langPrefix(context?.lang);
+    const start = (page - 1) * RESULTS_PER_PAGE;
+    const end = start + RESULTS_PER_PAGE;
+    const firstSitePage = Math.floor(start / SITE_PAGE_SIZE) + 1;
+    const lastSitePage = Math.floor((end - 1) / SITE_PAGE_SIZE) + 1;
+
+    const first = await this._fetchSitePage(query, firstSitePage, langPrefix, context);
+    if (!first) return [];
+    if (first.total) {
+      context?.pagination?.({ total: Math.ceil(first.total / RESULTS_PER_PAGE) });
+    }
+
+    let items = first.results;
+    if (lastSitePage !== firstSitePage && items.length >= SITE_PAGE_SIZE) {
+      const second = await this._fetchSitePage(query, lastSitePage, langPrefix, context);
+      if (second) {
+        const seen = new Set(items.map((r) => r.url));
+        items = items.concat(second.results.filter((r) => !seen.has(r.url)));
+      }
+    }
+
+    const offset = start - (firstSitePage - 1) * SITE_PAGE_SIZE;
+    return items.slice(offset, offset + RESULTS_PER_PAGE);
   }
 }
 

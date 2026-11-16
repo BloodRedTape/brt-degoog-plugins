@@ -17,6 +17,13 @@
       "path": "prom-ua",
       "name": "Prom.ua",
       "description": "Product search on prom.ua. Results appear in the Shop tab with price, availability and seller.",
+      "version": "1.1.0",
+      "type": "shop"
+    },
+    {
+      "path": "rozetka",
+      "name": "Rozetka",
+      "description": "Product search on rozetka.com.ua. Results appear in the Shop tab with price, availability, seller and rating.",
       "version": "1.0.0",
       "type": "shop"
     }
