@@ -84,15 +84,18 @@ export default class AlzaEngine {
     }
     context?.carry?.({ alzaBase: base });
 
-    let items = await this._sitePage(query, base, firstSitePage, context, firstHtml);
-    if (lastSitePage !== firstSitePage && items.length >= SITE_PAGE_SIZE) {
-      const more = await this._sitePage(query, base, lastSitePage, context, firstHtml);
-      const seen = new Set(items.map((r) => r.url));
-      items = items.concat(more.filter((r) => !seen.has(r.url)));
-    }
+    const [items, more] = await Promise.all([
+      this._sitePage(query, base, firstSitePage, context, firstHtml),
+      lastSitePage !== firstSitePage
+        ? this._sitePage(query, base, lastSitePage, context, firstHtml)
+        : Promise.resolve([]),
+    ]);
+    const seen = new Set(items.map((r) => r.url));
+    const merged =
+      items.length >= SITE_PAGE_SIZE ? items.concat(more.filter((r) => !seen.has(r.url))) : items;
 
     const offset = start - (firstSitePage - 1) * SITE_PAGE_SIZE;
-    return items.slice(offset, offset + RESULTS_PER_PAGE);
+    return merged.slice(offset, offset + RESULTS_PER_PAGE);
   }
 }
 

@@ -31,7 +31,7 @@
       "path": "alza",
       "name": "Alza.cz",
       "description": "Product search on alza.cz. Results appear in the Shop tab with price, availability and rating. Needs a browser transport such as Camoufox to get past Cloudflare.",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "type": "shop"
     },
     {
