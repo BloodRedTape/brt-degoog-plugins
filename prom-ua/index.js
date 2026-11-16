@@ -65,3 +65,4 @@ export default class PromUaEngine {
 }
 
 export const type = "shop";
+export const site = "https://prom.ua";

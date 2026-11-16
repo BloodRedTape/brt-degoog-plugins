@@ -73,3 +73,4 @@ export default class RozetkaEngine {
 }
 
 export const type = "shop";
+export const site = "https://rozetka.com.ua";
