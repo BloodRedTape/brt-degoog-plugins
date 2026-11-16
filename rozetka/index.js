@@ -1,4 +1,5 @@
 import { parseJsonBody, parseSearch, parseDetails } from "./parse.js";
+import { DEFAULT_REGIONS, REGION_SETTINGS, parseRegions, regionAllowed } from "./regions.js";
 
 const FALLBACK_UA =
   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36";
@@ -38,6 +39,16 @@ export default class RozetkaEngine {
   isClientExposed = false;
   name = "Rozetka";
   bangShortcut = "rozetka";
+  settingsSchema = REGION_SETTINGS;
+  allowedRegions = DEFAULT_REGIONS;
+  runWithoutRegion = true;
+
+  configure(settings) {
+    if (settings?.allowedRegions !== undefined) {
+      this.allowedRegions = parseRegions(settings.allowedRegions);
+    }
+    this.runWithoutRegion = settings?.runWithoutRegion !== "false" && settings?.runWithoutRegion !== false;
+  }
 
   async _getJson(url, context, lang) {
     const doFetch = context?.fetch ?? fetch;
@@ -53,6 +64,7 @@ export default class RozetkaEngine {
 
   async executeSearch(query, page = 1, _timeFilter, context) {
     if (!query.trim()) return [];
+    if (!regionAllowed(context?.region, this.allowedRegions, this.runWithoutRegion)) return [];
     const lang = _lang(context?.lang);
     const start = (page - 1) * RESULTS_PER_PAGE;
     const sitePage = Math.floor(start / SITE_PAGE_SIZE) + 1;
@@ -74,3 +86,4 @@ export default class RozetkaEngine {
 
 export const type = "shop";
 export const site = "https://rozetka.com.ua";
+export const regions = DEFAULT_REGIONS;
