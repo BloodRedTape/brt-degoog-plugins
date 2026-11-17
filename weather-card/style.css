@@ -1,0 +1,203 @@
+.wc-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  min-width: 0;
+  color: var(--text-primary);
+}
+
+.wc-top {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.75rem 1.5rem;
+}
+
+.wc-now {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+
+.wc-temp {
+  font-size: 3rem;
+  line-height: 1;
+  font-weight: 400;
+}
+
+.wc-unit {
+  align-self: flex-start;
+  margin-top: 0.25rem;
+  font-size: 1rem;
+  color: var(--text-secondary);
+}
+
+.wc-details {
+  display: flex;
+  flex-direction: column;
+  margin-left: 0.5rem;
+  line-height: 1.4;
+}
+
+.wc-place {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+  gap: 0.125rem;
+}
+
+.wc-card .wc-city {
+  color: var(--text-primary);
+  font-size: 1.375rem;
+  font-weight: 500;
+  line-height: 1.2;
+  text-decoration: none;
+}
+
+.wc-card .wc-city:hover {
+  text-decoration: underline;
+}
+
+.wc-icon--now {
+  font-size: 2.75rem;
+}
+
+.wc-icon--day {
+  font-size: 1.5rem;
+}
+
+.wc-icon--sun,
+.wc-icon--bolt {
+  color: #f9ab00;
+}
+
+.wc-icon--cloud {
+  color: #9aa0a6;
+}
+
+.wc-icon--rain {
+  color: #4285f4;
+}
+
+.wc-icon--snow {
+  color: #8ab4f8;
+}
+
+.wc-tabs {
+  display: flex;
+  overflow-x: auto;
+}
+
+.wc-chart {
+  min-height: 1px;
+}
+
+.wc-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.wc-svg-area {
+  fill: color-mix(in srgb, #fbbc04 24%, var(--bg-light));
+}
+
+.wc-svg-line {
+  fill: none;
+  stroke: #fbbc04;
+  stroke-width: 2;
+  stroke-linejoin: round;
+}
+
+.wc-svg-bar {
+  fill: #8ab4f8;
+}
+
+.wc-svg-arrow {
+  fill: var(--text-secondary);
+}
+
+.wc-svg-value,
+.wc-svg-hour {
+  fill: var(--text-secondary);
+  font-size: 12px;
+  text-anchor: middle;
+}
+
+.wc-svg-hour {
+  font-size: 11px;
+}
+
+.wc-days {
+  display: grid;
+  grid-template-columns: repeat(8, minmax(4.25rem, 1fr));
+  gap: 0.25rem;
+  overflow-x: auto;
+}
+
+.wc-day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.5rem 0.25rem;
+  border: 0;
+  border-radius: 12px;
+  background: none;
+  color: var(--text-primary);
+  font: inherit;
+  cursor: pointer;
+}
+
+.wc-day:hover,
+.wc-day.active {
+  background: var(--bg-hover);
+}
+
+.wc-day:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+.wc-day-name {
+  font-size: 0.9375rem;
+}
+
+.wc-day-temps {
+  font-size: 0.875rem;
+  white-space: nowrap;
+}
+
+.wc-day-min {
+  color: var(--text-secondary);
+}
+
+.wc-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.wc-links .degoog-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-secondary);
+}
+
+.wc-links .degoog-btn:hover {
+  color: var(--text-primary);
+}
+
+@media (max-width: 560px) {
+  .wc-place {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .wc-temp {
+    font-size: 2.5rem;
+  }
+}

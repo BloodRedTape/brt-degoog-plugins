@@ -1,0 +1,49 @@
+{
+  "weather-card-slot": {
+    "name": "Weather card",
+    "description": "Shows a weather card when the results link to a city forecast on a weather site.",
+    "settings": {
+      "layout": {
+        "label": "Layout",
+        "description": "Where the card appears and how it is framed."
+      }
+    },
+    "label": {
+      "precipitation": "Precipitation",
+      "humidity": "Humidity",
+      "wind": "Wind"
+    },
+    "tab": {
+      "temperature": "Temperature",
+      "precipitation": "Precipitation",
+      "wind": "Wind"
+    },
+    "unit": {
+      "wind": "m/s"
+    },
+    "sky": {
+      "0": "Clear",
+      "1": "Mostly clear",
+      "2": "Partly cloudy",
+      "3": "Mostly cloudy",
+      "4": "Overcast",
+      "5": "High clouds",
+      "6": "Fog"
+    },
+    "precip": {
+      "10": "light rain",
+      "11": "light sleet",
+      "12": "light snow",
+      "20": "rain",
+      "21": "sleet",
+      "22": "snow",
+      "30": "heavy rain",
+      "31": "heavy sleet",
+      "32": "heavy snow",
+      "40": "rain and thunderstorms",
+      "41": "sleet and thunderstorms",
+      "42": "snow and thunderstorms"
+    },
+    "hail": "Hail"
+  }
+}
