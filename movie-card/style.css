@@ -1,0 +1,135 @@
+.mv-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.25rem;
+  min-width: 0;
+}
+
+.mv-poster {
+  position: relative;
+  flex: 0 0 auto;
+  width: 7rem;
+  aspect-ratio: 2 / 3;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--bg-hover);
+  color: var(--text-secondary);
+  font-size: 2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mv-poster img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.mv-main {
+  flex: 0 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.mv-head {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.mv-kicker {
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.mv-card .mv-title {
+  color: var(--text-primary);
+  font-size: 1.75rem;
+  font-weight: 500;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+
+.mv-card .mv-title:hover {
+  text-decoration: underline;
+}
+
+.mv-extract {
+  margin: 0;
+  max-width: 48rem;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.mv-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 2rem;
+  margin: 0;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border-light);
+}
+
+.mv-fact {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  min-width: 0;
+}
+
+.mv-fact dt {
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.mv-fact dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.mv-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.mv-links .degoog-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-secondary);
+}
+
+.mv-links .degoog-btn:hover {
+  color: var(--text-primary);
+}
+
+.mv-link--imdb i {
+  color: #f5c518;
+}
+
+@media (max-width: 560px) {
+  .mv-card {
+    gap: 0.875rem;
+  }
+
+  .mv-poster {
+    width: 5rem;
+    font-size: 1.5rem;
+  }
+
+  .mv-card .mv-title {
+    font-size: 1.375rem;
+  }
+}

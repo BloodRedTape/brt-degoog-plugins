@@ -1,0 +1,28 @@
+{
+  "movie-card-slot": {
+    "name": "Movie card",
+    "description": "Shows a film or TV series card when the results link to it on IMDb.",
+    "settings": {
+      "layout": {
+        "label": "Layout",
+        "description": "Where the card appears and how it is framed."
+      }
+    },
+    "kind": {
+      "film": "Film",
+      "series": "TV series"
+    },
+    "fact": {
+      "director": "Director",
+      "creator": "Created by",
+      "duration": "Running time",
+      "released": "Premiere",
+      "seasons": "Seasons"
+    },
+    "unit": {
+      "hour": "h",
+      "minute": "min"
+    },
+    "wikipedia": "Wikipedia"
+  }
+}
