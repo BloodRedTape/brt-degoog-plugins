@@ -1,0 +1,30 @@
+{
+  "github-card-slot": {
+    "name": "Картка GitHub",
+    "description": "Показує картку репозиторію або профілю, якщо у видачі є посилання на GitHub.",
+    "settings": {
+      "layout": {
+        "label": "Розкладка",
+        "description": "Де показувати картку і в якому оформленні."
+      },
+      "token": {
+        "label": "Токен GitHub",
+        "description": "Personal access token. Без нього GitHub дозволяє 60 запитів на годину."
+      }
+    },
+    "kind": {
+      "user": "Користувач",
+      "org": "Організація"
+    },
+    "stars": "Зірки",
+    "forks": "Форки",
+    "license": "Ліцензія",
+    "updated": "Останній пуш",
+    "archived": "Архів",
+    "fork_of": "Форк",
+    "repos": "Публічні репозиторії",
+    "followers": "Підписники",
+    "related": "Також у видачі",
+    "repositories": "Репозиторії"
+  }
+}

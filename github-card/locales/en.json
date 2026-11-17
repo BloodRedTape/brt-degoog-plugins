@@ -1,0 +1,30 @@
+{
+  "github-card-slot": {
+    "name": "GitHub card",
+    "description": "Shows a repository or profile card when the results link to it on GitHub.",
+    "settings": {
+      "layout": {
+        "label": "Layout",
+        "description": "Where the card appears and how it is framed."
+      },
+      "token": {
+        "label": "GitHub token",
+        "description": "Personal access token. Without it GitHub allows 60 requests per hour."
+      }
+    },
+    "kind": {
+      "user": "User",
+      "org": "Organization"
+    },
+    "stars": "Stars",
+    "forks": "Forks",
+    "license": "License",
+    "updated": "Last push",
+    "archived": "Archived",
+    "fork_of": "Fork of",
+    "repos": "Public repositories",
+    "followers": "Followers",
+    "related": "Also in results",
+    "repositories": "Repositories"
+  }
+}

@@ -24,6 +24,13 @@
       "description": "Shows a weather card when the results link to a city forecast on a weather site.",
       "version": "0.1.0",
       "type": "slot"
+    },
+    {
+      "path": "github-card",
+      "name": "GitHub card",
+      "description": "Shows a repository or profile card when the results link to it on GitHub.",
+      "version": "0.1.0",
+      "type": "slot"
     }
   ],
   "engines": [
