@@ -10,6 +10,13 @@
       "description": "Adds a region button to the search bar, so you can switch the search region without opening settings.",
       "version": "1.1.0",
       "type": "command"
+    },
+    {
+      "path": "music-card",
+      "name": "Music card",
+      "description": "Shows a song, album or artist card when the results link to it on a music service.",
+      "version": "0.1.0",
+      "type": "slot"
     }
   ],
   "engines": [

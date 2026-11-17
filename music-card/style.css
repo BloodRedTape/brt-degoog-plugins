@@ -1,0 +1,137 @@
+.mc-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.25rem;
+  min-width: 0;
+}
+
+.mc-cover {
+  position: relative;
+  flex: 0 0 auto;
+  width: 7.5rem;
+  height: 7.5rem;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--bg-hover);
+  color: var(--text-secondary);
+  font-size: 2.25rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mc-card--artist .mc-cover {
+  border-radius: 50%;
+}
+
+.mc-cover img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.mc-main {
+  flex: 0 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+}
+
+.mc-head {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.mc-kicker {
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.mc-card .mc-title {
+  color: var(--text-primary);
+  font-size: 1.75rem;
+  font-weight: 500;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+
+.mc-card .mc-title:hover {
+  text-decoration: underline;
+}
+
+.mc-strong {
+  color: var(--text-primary);
+}
+
+.mc-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 2rem;
+  margin: 0;
+  padding-top: 0.875rem;
+  border-top: 1px solid var(--border-light);
+}
+
+.mc-fact {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  min-width: 0;
+}
+
+.mc-fact dt {
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.mc-fact dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.mc-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.mc-links .degoog-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-secondary);
+}
+
+.mc-links .degoog-btn:hover {
+  color: var(--text-primary);
+}
+
+.mc-link--spotify i {
+  color: #1db954;
+}
+
+.mc-link--genius i {
+  color: #e8c400;
+}
+
+@media (max-width: 560px) {
+  .mc-card {
+    gap: 0.875rem;
+  }
+
+  .mc-cover {
+    width: 5rem;
+    height: 5rem;
+    font-size: 1.5rem;
+  }
+
+  .mc-card .mc-title {
+    font-size: 1.375rem;
+  }
+}

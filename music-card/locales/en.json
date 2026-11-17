@@ -1,0 +1,27 @@
+{
+  "music-card-slot": {
+    "name": "Music card",
+    "description": "Shows a song, album or artist card when the results link to it on a music service.",
+    "settings": {
+      "layout": {
+        "label": "Layout",
+        "description": "Where the card appears and how it is framed."
+      }
+    },
+    "kind": {
+      "track": "Song",
+      "album": "Album",
+      "artist": "Artist"
+    },
+    "by": {
+      "track": "Song by",
+      "album": "Album by"
+    },
+    "fact": {
+      "artist": "Artist",
+      "album": "Album",
+      "released": "Released",
+      "duration": "Duration"
+    }
+  }
+}
